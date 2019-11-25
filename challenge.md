@@ -131,16 +131,17 @@ interview screening questions (a form you fill when applying for a job):
 - In the Northwind database, what is the type of relationship between the
   `Employee` and `Territory` tables?
 
-- one to one
+- **one to one**
 
 - What is a situation where a document store (like MongoDB) is appropriate, and
   what is a situation where it is not appropriate?
 
--
+- **When working with large amounts of data collected in various ways and are looking for scalability, it is appropriate to use a document store**
+- **When speed and accuracy are most important you should and you are less concerned with scalability you should consider an SQL db**
 
 - What is "NewSQL", and what is it trying to achieve?
 
-- A relational database that tries to incorporate both advantages of SQL and NoSQL
+- **A relational database that tries to incorporate both advantages of SQL and NoSQL**
 
 ### Part 5 - Turn it in!
 Provide all the files you wrote (`demo_data.py`, `northwind.py`), as well as
