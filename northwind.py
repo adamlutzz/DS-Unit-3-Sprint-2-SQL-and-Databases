@@ -6,11 +6,14 @@ CONN = sqlite3.connect('northwind_small.sqlite3')
 cursor = CONN.cursor()
 
 top_10_price = cursor.execute(
-    'SELECT ProductName, UnitPrice FROM Product Order BY UnitPrice desc LIMIT 10;'
+    'SELECT ProductName, UnitPrice FROM Product \
+    Order BY UnitPrice desc LIMIT 10;'
     ).fetchall()
 
 avg_emp_age = cursor.execute(
-    "SELECT AVG((strftime('%Y', 'now') - strftime('%Y', BirthDate)) - (strftime('%m-%d', 'now') < strftime('%m-%d', BirthDate) )) FROM Employee;"
+    "SELECT AVG((strftime('%Y', 'now') - strftime('%Y', BirthDate)) - \
+    (strftime('%m-%d', 'now') < strftime('%m-%d', BirthDate) ))\
+    FROM Employee;"
     ).fetchall()
 
 
@@ -25,11 +28,14 @@ CONN.commit()
 cursor1 = CONN.cursor()
 
 top_10_supplier = cursor1.execute(
-    'SELECT p.ProductName, p.UnitPrice, s.CompanyName FROM Product AS p, Supplier AS s WHERE p.SupplierId = s.Id Order BY UnitPrice desc LIMIT 10;'
+    'SELECT p.ProductName, p.UnitPrice, s.CompanyName FROM Product AS p,\
+    Supplier AS s WHERE p.SupplierId = s.Id Order BY UnitPrice desc LIMIT 10;'
     ).fetchall()
 
 largest_category = cursor1.execute(
-    'SELECT CategoryName, MAX(Nunique) FROM(SELECT CategoryName, COUNT(CategoryName) AS Nunique FROM(SELECT c.CategoryName FROM Category AS c, Product AS p WHERE c.Id = p.CategoryId) GROUP BY CategoryName);'
+    'SELECT CategoryName, MAX(Nunique) FROM(SELECT CategoryName, COUNT(CategoryName)\
+    AS Nunique FROM(SELECT c.CategoryName FROM Category AS c, Product AS p \
+    WHERE c.Id = p.CategoryId) GROUP BY CategoryName);'
     ).fetchall() # could not get this query to run correctly
 
 print('Top 10 Products w/ Supplier: ', top_10_supplier[0])
