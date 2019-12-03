@@ -25,11 +25,11 @@ CONN.commit()
 cursor1 = CONN.cursor()
 
 top_10_supplier = cursor1.execute(
-    'SELECT p.Id, p.ProductName, p.UnitPrice, s.CompanyName FROM Product AS p, Supplier AS s WHERE p.Id = s.Id Order BY UnitPrice desc LIMIT 10;'
+    'SELECT p.ProductName, p.UnitPrice, s.CompanyName FROM Product AS p, Supplier AS s WHERE p.SupplierId = s.Id Order BY UnitPrice desc LIMIT 10;'
     ).fetchall()
 
 largest_category = cursor1.execute(
-    'SELECT Id, CategoryName, COUNT(DISTINCT CategoryName) FROM( SELECT c.Id, c.CategoryName, p.ProductName FROM Category AS c, Product AS p WHERE c.Id = p.CategoryId);'
+    'SELECT CategoryName, MAX(Nunique) FROM(SELECT CategoryName, COUNT(CategoryName) AS Nunique FROM(SELECT c.CategoryName FROM Category AS c, Product AS p WHERE c.Id = p.CategoryId) GROUP BY CategoryName);'
     ).fetchall() # could not get this query to run correctly
 
 print('Top 10 Products w/ Supplier: ', top_10_supplier[0])
